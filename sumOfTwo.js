@@ -1,14 +1,25 @@
-const sumOfTwo = (nums, target) => {
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var sumOfTwo = function(nums, target) {
+	const map = new Map()
+
 	for (let i = 0; i < nums.length; i++) {
-		for (let j = i + 1; j < nums.length; j++) {
-			if ( nums[i] + nums[j] === target ) {
-				return [i, j];
-			}
+		map.set(nums[i], i)
+	}
+
+	for (let i = 0; i < nums.length; i++) {
+		const diff = target - nums[i]
+		
+		if (map.has(diff) && map.get(diff) !== i) {
+			return [i, map.get(diff)]
 		}
 	}
-}
+};
 
-const nums = [2,7,11,15];
-const target = 9;
+const nums = [3,2,4];
+const target = 6;
 
 console.log(sumOfTwo(nums, target));
